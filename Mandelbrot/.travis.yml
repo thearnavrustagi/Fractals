@@ -1,0 +1,38 @@
+language: python
+
+sudo: false
+
+python:
+- nightly
+- 3.6-dev
+- 3.5
+- 3.4
+- 3.3
+- 3.2
+- 2.7
+- 2.6
+
+matrix:
+  allow_failures:
+  - python: nightly
+  - python: 3.6-dev
+  - python: 3.2
+  - python: 2.6
+
+addons:
+  apt:
+    packages:
+    - libatlas-dev
+    - libatlas-base-dev
+    - liblapack-dev
+    - gfortran
+
+before_install:
+- PY=$(python -V 2>&1 | sed 's/[^0-9]//g;s/.//3g')
+- test $PY == 32 && TOX='virtualenv<14 tox' || TOX=tox
+
+install:
+- pip install $TOX
+- tox -e py$PY --notest
+
+script: tox -e py$PY -vv -- -vs
