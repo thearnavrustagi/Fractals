@@ -23,7 +23,7 @@ def op(f):
     return eval(f"lambda x,y:x{f}y")
 
 def main():
-    display(get_centers(3))
+    display(get_centers(4))
 
 def get_centers(iterations=5,origin=(0,0),circles=5,radius=5,):
     centers=Circles([origin],radius)
@@ -51,11 +51,13 @@ def build (centers):
 
 def display(circles):
     for center in circles.centers:
-        c=plt.Circle(center,radius=circles.radius,fill=False)
+        c=plt.Circle(center,radius=circles.radius,fill=False,linewidth=1)
         plt.gca().add_artist(c)
     plt.axis('equal')
-    plt.axis([-300,300,-300,300])
+    plt.axis('off')
+    plt.axis([-250,250,-250,250])
 #   plt.scatter(*centers.get_cols())
+    plt.savefig('hexaspheres.svg')
     plt.show()
 if __name__=='__main__':
     main()

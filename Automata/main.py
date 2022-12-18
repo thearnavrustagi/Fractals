@@ -35,7 +35,7 @@ def generate_automata(shape=(128,128),max_value=5,iterations=5,colors=None):
     for i in range(1,iterations+1):
         for x in range(len(automata)):
             for y in range(len(automata)):
-                automata[x][y]=modify_automata(automata,x,y,6,neighbours=neighbours)%max_value
+                automata[x][y]=modify_automata(automata,x,y,8,neighbours=neighbours)%max_value
                 image[x][y]=colors[int(automata[x][y])]
         print(f'iteration: {i}')
     cv.imwrite('./output.png',np.array(image))

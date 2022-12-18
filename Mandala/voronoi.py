@@ -6,8 +6,8 @@ from math import pi
 
 def main ():
     itr=3          # iterations
-    points=6      # number of initial voronoi points
-    radius=2       # the rate of expansion/compression
+    points=11      # number of initial voronoi points
+    radius=3       # the rate of expansion/compression
     bounds=(10,10) # the bounds of the figure
     build_mandala(itr,points,radius,bounds)
 
@@ -19,12 +19,22 @@ def build_mandala(iterations:int, points:int, radius:float,bounds:(int, int)):
     angles = get_angles(points)
     coordinates=iterate_and_get_points_for_mandala(iterations, angles, radius)
     # creates a voronoi object based on the co-ordinates
-    print(coordinates)
     mandala = Voronoi(coordinates)
-    voronoi_plot_2d(mandala, show_points=False, show_vertices=False, dpi=1200,)
+    show_mandala(mandala)
+
+def show_mandala(mandala):
+    figure=voronoi_plot_2d(mandala, show_points=False, show_vertices=False, dpi=1200,)
+    """
+    print(plt.axes[0].lines)
+    print(type(figure.axes.lines))
+    lines=figure.axes.lines
+    for i in range(10):
+        lines.pop().remove()
+        """
+    
     plt.axis('off')
     plt.gca().set_aspect('equal', adjustable='box')
-    plt.savefig('mandala3.png')
+    plt.savefig('mandala.svg',dpi=1200)
     return plt.show()
 
 """
@@ -35,7 +45,6 @@ def iterate_and_get_points_for_mandala(iterations:int, angles, radius:float):
     x,y=0,0
     coordinates = pd.DataFrame([[x,y]], columns=['x','y']) 
     for iteration in range(iterations):
-        print(f'iteration {iteration}:')
         points_on_x, points_on_y = np.array([]), np.array([])
         for row in range(coordinates.shape[0]):
             xval, yval=calculate_location(coordinates,radius, angles,row,iteration)
