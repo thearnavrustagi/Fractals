@@ -11,5 +11,5 @@ def count(start=0, step=1):
 
 def pytest_configure(config):
     """Py.test hook to replace ``itertools.count`` on Python 2.6."""
-    if sys.version_info < (2,7):
+    if sys.version_info < (2, 7):
         itertools.count = count

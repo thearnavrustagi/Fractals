@@ -70,15 +70,16 @@ By Danilo J. S. Bellini
 """
 
 kwargs = {
-  "listdir": os.listdir,
-  "sorted": sorted,
-  "show_parameters": show_parameters,
+    "listdir": os.listdir,
+    "sorted": sorted,
+    "show_parameters": show_parameters,
 }
 
 if __name__ == "__main__":
-  import jinja2
-  template = jinja2.Template(template_string)
-  readme_data = template.render(**kwargs)
+    import jinja2
 
-  with io.open("README.rst", "w", encoding="utf-8", newline="\r\n") as readme:
-    readme.write(readme_data)
+    template = jinja2.Template(template_string)
+    readme_data = template.render(**kwargs)
+
+    with io.open("README.rst", "w", encoding="utf-8", newline="\r\n") as readme:
+        readme.write(readme_data)
